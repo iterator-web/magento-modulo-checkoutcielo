@@ -1,0 +1,19 @@
+<config>
+    <modules>
+        <Iterator_CieloCheckout>
+            <version>1.0.0</version>
+        </Iterator_CieloCheckout>
+    </modules>
+    <global>
+        <models>
+            <cielocheckout>
+                <class>Iterator_CieloCheckout_Model</class>
+            </cielocheckout>
+        </models>
+        <helpers>
+            <cielocheckout>
+                <class>Iterator_CieloCheckout_Helper</class>
+            </cielocheckout>
+        </helpers>
+    </global>
+</config>
