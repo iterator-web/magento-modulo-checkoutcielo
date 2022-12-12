@@ -10,6 +10,11 @@
                 <class>Iterator_CieloCheckout_Model</class>
             </cielocheckout>
         </models>
+        <blocks>
+            <cielocheckout>
+                <class>Iterator_CieloCheckout_Block</class>
+            </cielocheckout>
+        </blocks>
         <helpers>
             <cielocheckout>
                 <class>Iterator_CieloCheckout_Helper</class>
