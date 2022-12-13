@@ -28,6 +28,57 @@
  */
 
 class Iterator_CieloCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
+
+   public function createOrder($jsonOrder) {
+      $apiUrl = Mage::getStoreConfig('payment/cielocheckout/api_url');
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+          CURLOPT_URL => $apiUrl.'/public/v1/orders',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => $jsonOrder,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_SSL_VERIFYPEER => false,
+          CURLOPT_HTTPHEADER => array(
+              "Accept: application/json",
+              "Content-Type: application/json",
+              "MerchantId: ".Mage::getStoreConfig('payment/cielocheckout/merchant_id'),
+              "cache-control: no-cache"
+          ),
+      ));
+      $resultado = curl_exec($curl);
+      $erro = curl_error($curl);
+
+      curl_close($curl);
+
+      if($erro) {
+         Mage::log($jsonOrder .' -> '. $erro, null, 'cielocheckout.log');
+         return false;
+      } else {
+         Mage::log($jsonOrder .' -> '. $resultado, null, 'cielocheckout.log');
+         return json_decode($resultado);
+      }
+   }
+
+   public function formatValueForCielo($originalValue) {
+      if (strpos($originalValue, ".") == false) {
+         $value = $originalValue . "00";
+      } else {
+         list($integers, $decimals) = explode(".", $originalValue);
+         if (strlen($decimals) > 2) {
+            $decimals = substr($decimals, 0, 2);
+         }
+         while (strlen($decimals) < 2) {
+            $decimals .= "0";
+         }
+         $value = $integers . $decimals;
+      }
+      return $value;
+   }
 }
 
 ?>

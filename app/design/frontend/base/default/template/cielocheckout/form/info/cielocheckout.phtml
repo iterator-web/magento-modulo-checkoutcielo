@@ -1,0 +1,8 @@
+<?php
+
+$_method = $this->getMethod();
+$_code= $_method->getCode();
+$_additional = $_method->getInfoInstance()->getAdditionalInformation();
+?>
+<p><strong><?php echo $_method->getTitle();?></strong></p>
+<p><a href="<?php echo $_additional['checkout_url'];?>">Clique aqui para pagar no Checkout Cielo</a></p>
