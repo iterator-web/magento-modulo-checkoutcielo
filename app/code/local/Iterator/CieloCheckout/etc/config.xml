@@ -21,4 +21,12 @@
             </cielocheckout>
         </helpers>
     </global>
+    <default>
+        <payment>
+            <cielocheckout>
+                <model>cielocheckout/sale_cielocheckout</model>
+                <active>1</active>
+            </cielocheckout>
+        </payment>
+    </default>
 </config>
