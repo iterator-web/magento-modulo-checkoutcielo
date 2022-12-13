@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <config>
     <sections>
-        <payment>
+        <payment translate="label" module="payment">
             <groups>
                 <cielocheckout>
                     <label>Checkout Cielo</label>
@@ -20,7 +21,7 @@
                             <show_in_store>0</show_in_store>
                         </active>
                         <title>
-                            <label>Título</label>
+                            <label><![CDATA[Título]]></label>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -28,7 +29,7 @@
                             <show_in_store>0</show_in_store>
                         </title>
                         <description>
-                            <label>Descrição</label>
+                            <label><![CDATA[Descrição]]></label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
