@@ -108,7 +108,7 @@ class Iterator_CieloCheckout_Model_Sale_Cielocheckout extends Mage_Payment_Model
         $historyItem = $order->addStatusHistoryComment($comment, $order->getStatus());
         $historyItem->setIsCustomerNotified(1)->save();
         $order->save();
-        $commentEmail = 'Caso ainda não tenha efetuado o pagamento, pode acessar e fazer o pagamento pelo pedido diretamente através do link a seguir.<br/><br/><b>Link do Checkout Cielo:</b> <a href="'.$orderReturn->settings->checkoutUrl.'">'.$orderReturn->settings->checkoutUrl.'</a>';
+        $commentEmail = 'Caso ainda não tenha efetuado o pagamento, pode acessar e fazer o pagamento do pedido diretamente no link a seguir.<br/><br/><b>Link do Checkout Cielo:</b> <a href="'.$orderReturn->settings->checkoutUrl.'">'.$orderReturn->settings->checkoutUrl.'</a>';
         $order->sendOrderUpdateEmail($notify=true, $commentEmail);
 
         return $orderReturn->settings->checkoutUrl;
