@@ -21,6 +21,20 @@
             </cielocheckout>
         </helpers>
     </global>
+
+    <crontab>
+        <jobs>
+            <conferir_cielo>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>cielocheckout/cron::conferirCielo</model>
+                </run>
+            </conferir_cielo>
+        </jobs>
+    </crontab>
+
     <default>
         <payment>
             <cielocheckout>

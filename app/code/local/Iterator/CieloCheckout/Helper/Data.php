@@ -56,13 +56,47 @@ class Iterator_CieloCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
       curl_close($curl);
 
       if($erro) {
-         Mage::log($jsonOrder .' -> '. $erro, null, 'cielocheckout.log');
+         Mage::log('createOrder: '.$jsonOrder .' -> '. $erro, null, 'cielocheckout.log');
          return false;
       } else {
-         Mage::log($jsonOrder .' -> '. $resultado, null, 'cielocheckout.log');
+         Mage::log('createOrder: '.$jsonOrder .' -> '. $resultado, null, 'cielocheckout.log');
          return json_decode($resultado);
       }
    }
+
+    public function checkPayment($orderIncrementId) {
+        $apiUrl = Mage::getStoreConfig('payment/cielocheckout/api_url');
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+             CURLOPT_URL => $apiUrl.'/public/v1/orders/'.Mage::getStoreConfig('payment/cielocheckout/merchant_id').'/'.$orderIncrementId,
+             CURLOPT_RETURNTRANSFER => true,
+             CURLOPT_ENCODING => "",
+             CURLOPT_MAXREDIRS => 10,
+             CURLOPT_TIMEOUT => 30,
+             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+             CURLOPT_CUSTOMREQUEST => "GET",
+             CURLOPT_FOLLOWLOCATION => true,
+             CURLOPT_SSL_VERIFYPEER => false,
+             CURLOPT_HTTPHEADER => array(
+                  "Accept: application/json",
+                  "Content-Type: application/json",
+                  "MerchantId: ".Mage::getStoreConfig('payment/cielocheckout/merchant_id'),
+                  "cache-control: no-cache"
+             ),
+        ));
+        $resultado = curl_exec($curl);
+        $erro = curl_error($curl);
+
+        curl_close($curl);
+
+        if($erro) {
+            Mage::log('checkPayment: '.$orderIncrementId .' -> '. $erro, null, 'cielocheckout.log');
+            return false;
+        } else {
+            Mage::log('checkPayment: '.$orderIncrementId .' -> '. $resultado, null, 'cielocheckout.log');
+            return json_decode($resultado);
+        }
+    }
 
    public function formatValueForCielo($originalValue) {
       if (strpos($originalValue, ".") == false) {
