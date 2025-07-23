@@ -117,10 +117,15 @@ class Iterator_CieloCheckout_Model_Sale_Cielocheckout extends Mage_Payment_Model
     private function getItems($order) {
         $itemsArray = array();
         foreach($order->getAllItems() as $item) {
+            $produto = Mage::getModel('catalog/product')->load($item->getProductId());
+            $fee = 0;
+            if($produto->getImpostosIpi() === '1') {
+                $fee = (($item->getPrice() + $order->getShippingAmount())) * (8/100);
+            }
             $itemsArray[] = array(
                 'Name' => substr($item->getName(), 0, 127),
                 'Description' => substr($item->getDescription(), 0, 255),
-                'UnitPrice' => Mage::helper('cielocheckout')->formatValueForCielo($item->getPrice()),
+                'UnitPrice' => Mage::helper('cielocheckout')->formatValueForCielo($item->getPrice() + $fee),
                 'Quantity' => (int)$item->getQtyOrdered(),
                 'Type' => 'Asset',
                 'Sku' => $item->getSku(),
