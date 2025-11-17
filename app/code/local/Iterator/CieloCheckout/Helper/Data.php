@@ -99,6 +99,9 @@ class Iterator_CieloCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
    public function formatValueForCielo($originalValue) {
+      // Garantir que o valor seja positivo (usar valor absoluto)
+      $originalValue = abs($originalValue);
+      
       if (strpos($originalValue, ".") == false) {
          $value = $originalValue . "00";
       } else {
