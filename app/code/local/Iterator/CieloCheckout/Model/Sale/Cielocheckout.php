@@ -120,7 +120,7 @@ class Iterator_CieloCheckout_Model_Sale_Cielocheckout extends Mage_Payment_Model
             $produto = Mage::getModel('catalog/product')->load($item->getProductId());
             $fee = 0;
             if($produto->getImpostosIpi() === '1') {
-                $fee = (($item->getPrice() + $order->getShippingAmount())) * (8/100);
+                $fee = ($item->getPrice()) * (5.2/100);
             }
             $itemsArray[] = array(
                 'Name' => substr($item->getName(), 0, 127),
